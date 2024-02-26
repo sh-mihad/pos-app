@@ -1,35 +1,36 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useReducer, useState } from "react";
+import Payment from "./component/PaymentModal";
+import Cart from "./component/cart";
+import Products from "./component/products";
+import { DataContext } from "./context";
+import { productsData } from "./data/product";
+import { cartReducer, initialState } from "./reducer/cartReducer";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+export default function App() {
+  const [isPaymentSectionShow, setPaymentSectionShow] = useState(false);
+  const [grandTotal, setGrandTotal] = useState(0);
+  const [state, dispatch] = useReducer(cartReducer, initialState);
+  const [products, setProducts] = useState(productsData);
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <DataContext.Provider
+      value={{
+        products,
+        setProducts,
+        state,
+        dispatch,
+        setPaymentSectionShow,
+        grandTotal,
+        setGrandTotal,
+      }}
+    >
+      <div className="block lg:flex max-w-screen-2xl mx-auto">
+        <Cart />
+        {isPaymentSectionShow ? (
+          <Payment onHide={() => setPaymentSectionShow(false)}/>
+        ) : (
+          <Products />
+        )}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </DataContext.Provider>
+  );
 }
-
-export default App
