@@ -1,5 +1,16 @@
-#  Pos Front-End app 
-This is an react pos front-end app for building reqliq coding test.In this project I use react core feature like useState,ureReducer,contetApi and use 3rd perty pakcages like toastify and react router dom.For the styling I use Tailwind CSS.
+# POS Front-End App
+
+This is a React POS (Point of Sale) front-end app for the reqliq coding test. In this project, I have utilized core React features such as useState, useReducer, Context API, and incorporated third-party packages like Toastify and React Router DOM. The styling is implemented using Tailwind CSS.
+
+## Main Features
+
+- **Search and Filter Products**
+- **Dynamically Show Product Category Filter Buttons**
+- **Product Adding to Cart**
+- **Cart Adjustment**
+- **Generate Billing Based on the Cart Contents**
+- **Add Flat and Percentage Discounts Based on Subtotal**
+- **Pass the Grand Total Amount to Checkout Page**
 
 
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
