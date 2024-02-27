@@ -8,7 +8,7 @@ export default function DiscountModal({ charge, setCharge, onHide }) {
   // state for discount modal form
     const[formData,setFormData] =useState({
         amount:charge?.discount?.amount,
-        type : charge?.discount?.type
+        type : charge?.discount?.type || "Flat"
     })
   // form save handler
     const handleSave = (e)=>{
@@ -21,6 +21,7 @@ export default function DiscountModal({ charge, setCharge, onHide }) {
           toast.warn("No more discount over than subtotal")
         }
     }
+    console.log(formData);
   return (
     <div className="fixed top-0 left-0 w-screen h-screen z-50 bg-[#000000]/50 backdrop-blur-sm">
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-[420px] sm:max-w-[600px] lg:max-w-[984px] p-4 max-h-[90vh] overflow-auto ">
