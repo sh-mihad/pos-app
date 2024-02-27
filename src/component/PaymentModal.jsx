@@ -1,4 +1,6 @@
 import { useContext, useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import accountImg from "../assets/svg/account.svg";
 import cardImg from "../assets/svg/card.svg";
 import cashPayImg from "../assets/svg/cash-pay-svgrepo.svg";
@@ -7,8 +9,17 @@ import crossImg from "../assets/svg/cross-circle.svg";
 import { DataContext } from "../context";
 
 export default function PaymentModal({ onHide }) {
-  const { grandTotal } = useContext(DataContext);
+  const { grandTotal,dispatch } = useContext(DataContext);
   const [paymentMethod] = useState("card")
+  const {register,handleSubmit, formState: { errors },} = useForm()
+  const onSubmit =()=>{
+    toast.success("Your Order Complete ")
+    dispatch({
+      type:"REMOVE_CART_PRODUCT"
+    })
+    onHide()
+  }
+  console.log("errors",errors);
   return (
     <section className="w-full lg:w-[55%] bg-bgPrimary ">
       <div className="m-6 flex items-center justify-between p-4 border border-borderColor rounded-md">
@@ -60,32 +71,49 @@ export default function PaymentModal({ onHide }) {
           </button>
         </div>
         <div className="w-7/12">
-          <form action="#" className="my-5">
+          <form onSubmit={handleSubmit(onSubmit)} className="my-5">
             <input
               type="text"
               placeholder="Card Name"
-              className="w-full  focus:outline-none border-b p-1 my-3 border-primary"
+              className={`w-full  focus:outline-none border-b p-1 mt-3 ${errors?.cardName?"border-danger":"border-borderColor"}`}
+              {...register("cardName",{
+                required:true,
+              })}
             />
+            {errors?.cardName && <small className="text-danger ita">Card Name is Required</small>}
             <input
               type="text"
               placeholder="Card Number"
-              className="w-full  focus:outline-none border-b p-1 my-3 border-primary"
+              className={`w-full  focus:outline-none border-b p-1 mt-3 ${errors?.cardNumber?"border-danger":"border-borderColor"}`}
+              {...register("cardNumber",{
+                required:true,
+              })}
             />
+             {errors?.cardNumber && <small className="text-danger ita">Card Number is Required</small>}
             <input
               type="date"
-              placeholder="Card Number"
-              className="w-full  focus:outline-none border-b p-1 my-3 border-primary"
+              className={`w-full  focus:outline-none border-b p-1 mt-3 ${errors?.cardExpireDate?"border-danger":"border-borderColor"}`}
+              {...register("cardExpireDate",{
+                required:true,
+              })}
             />
+             {errors?.cardExpireDate && <small className="text-danger ita">Card Expire Date is Required</small>}
+           
             <input
               type="text"
               placeholder="Card Secret"
-              className="w-full  focus:outline-none border-b p-1 my-3 border-primary"
+              className={`w-full  focus:outline-none border-b p-1 mt-3 ${errors?.cardSecret?"border-danger":"border-borderColor"}`}
+              {...register("cardSecret",{
+                required:true,
+              })}
             />
-          </form>
-          <div className="flex items-center justify-between mt-20 mb-6">
+             {errors?.cardSecret && <small className="text-danger ita">Card Secret is Required</small>}
+
+             <div className="flex items-center justify-between mt-20 mb-6">
             <button
-              className="flex items-center bg-danger bg-opacity-15 py-3 px-4 rounded-md"
+              className="flex items-center bg-danger bg-opacity-15 py-3 px-4 rounded-md hover:bg-danger hover:bg-opacity-35"
               onClick={() => onHide()}
+              type="button"
             >
               <img
                 src={crossImg}
@@ -98,7 +126,7 @@ export default function PaymentModal({ onHide }) {
                 Cancel
               </span>
             </button>
-            <button className="flex items-center bg-info py-3 px-4 rounded-md">
+            <button className="flex items-center bg-info py-3 px-4 rounded-md hover:bg-info hover:bg-opacity-35" type="submit">
               <img
                 src={cashPayImg}
                 width="25px"
@@ -110,6 +138,8 @@ export default function PaymentModal({ onHide }) {
               </span>
             </button>
           </div>
+          </form>
+         
         </div>
         <div></div>
       </div>

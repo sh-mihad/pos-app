@@ -7,6 +7,7 @@ import shippingImg from "../../assets/svg/shipping.svg"
 import SideMenubar from "../SideMenubar"
 
 export default function CartNavBar() {
+// state for sideMenubar
 const[isModalShow,setModalShow] =useState(false)
   return (
    <>

@@ -7,10 +7,13 @@ import { productsData } from "./data/product";
 import { cartReducer, initialState } from "./reducer/cartReducer";
 
 export default function App() {
+  
+  //states for passing via context in child element
   const [isPaymentSectionShow, setPaymentSectionShow] = useState(false);
   const [grandTotal, setGrandTotal] = useState(0);
   const [state, dispatch] = useReducer(cartReducer, initialState);
   const [products, setProducts] = useState(productsData);
+
   return (
     <DataContext.Provider
       value={{

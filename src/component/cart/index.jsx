@@ -8,8 +8,12 @@ import Customer from "./Customer";
 
 export default function Cart() {
   const { state } = useContext(DataContext);
+  //state for discount and shipping charge
   const[charge,setCharge] = useState({
-    discount:10,
+    discount:{
+      type:"",
+      amount:0
+    },
     shipping:0
   })
   
@@ -25,7 +29,7 @@ export default function Cart() {
           ))}
       </div>
       <CartBill charge={charge} setCharge={setCharge}/>
-      <CartFooter />
+      <CartFooter charge={charge} setCharge={setCharge}/>
     </section>
   );
 }
