@@ -7,7 +7,7 @@ export default function DiscountModal({ charge, setCharge, onHide }) {
   const {state} = useContext(DataContext)
   // state for discount modal form
     const[formData,setFormData] =useState({
-        amount:charge?.discount?.amount,
+        amount:charge?.discount?.amount ||0,
         type : charge?.discount?.type || "Flat"
     })
   // form save handler
